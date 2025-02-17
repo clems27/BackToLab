@@ -35,14 +35,6 @@ The Recipe Swap App is a social platform designed to connect food enthusiasts wo
 - Generate shopping lists based on selected recipes.
 - Plan weekly meals and track nutritional information.
 
-### Gamification & Rewards
-- Earn badges for engagement (e.g., most shared, top chef of the week).
-- Unlock premium recipes through participation.
-
-### Multi-Device Support & Synchronization
-- Accessible on mobile (iOS & Android) and web.
-- Sync recipes, favorites, and meal plans across devices.
-
 ### Privacy & Security
 - Users control visibility of shared recipes.
 - Secure data storage and GDPR-compliant privacy settings.
