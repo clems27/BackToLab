@@ -1,0 +1,96 @@
+/* Reset default styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Logo */
+.logo img {
+    width: 150px;
+    margin-top: 20px;
+}
+
+/* Navigation */
+.nav {
+    text-align: right;
+    margin: 20px;
+}
+
+.nav .btn {
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Get Started Button */
+.get-started {
+    margin: 20px 0;
+}
+
+.circle-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+/* Food Images */
+.food-images img {
+    width: 30%;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+    width: 50%;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 10px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Bottom text for login/register */
+.bottom-text {
+    margin-top: 10px;
+}
+
+/* Background images */
+body {
+    background-image: url("/BackToLab/src/images/background.jpg");
+    background-size: cover;
+}
