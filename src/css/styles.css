@@ -1,96 +1,125 @@
-/* Reset default styles */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+/* Global Styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-.container {
-    width: 50%;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Logo */
-.logo img {
-    width: 150px;
-    margin-top: 20px;
-}
-
-/* Navigation */
-.nav {
-    text-align: right;
-    margin: 20px;
-}
-
-.nav .btn {
-    padding: 10px 20px;
-    background-color: #ff6600;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 5px;
-}
-
-h1, h2 {
+body {
+    background-color: #f8f8f8;
     color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Get Started Button */
-.get-started {
-    margin: 20px 0;
-}
-
-.circle-btn {
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #ff6600;
+/* Header */
+header {
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 15px 0;
+    text-align: center;
     color: white;
-    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Main Container */
+main {
+    width: 90%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Profile Page */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.avatar-section {
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    font-size: 18px;
+    border: 3px solid #4CAF50;
+    margin-bottom: 10px;
 }
 
-/* Food Images */
-.food-images img {
-    width: 30%;
-    margin: 10px;
-    border-radius: 10px;
+/* Buttons */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
-/* Form Styles */
+.edit-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Forms */
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: auto;
-    width: 50%;
 }
 
-input {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.btn {
+/* Recipe Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background: #e3f2fd;
     padding: 10px;
-    background-color: #ff6600;
-    color: white;
-    border: none;
-    cursor: pointer;
+    margin: 5px 0;
     border-radius: 5px;
 }
 
-/* Bottom text for login/register */
-.bottom-text {
-    margin-top: 10px;
-}
+/* Responsive Design */
+@media (max-width: 600px) {
+    main {
+        width: 95%;
+        padding: 15px;
+    }
 
-/* Background images */
-body {
-    background-image: url("/BackToLab/src/images/background.jpg");
-    background-size: cover;
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
 }
