@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error - Access Denied</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Welcome to MC Recipe Swap</title>
+    <link rel="stylesheet" href="styles.css"> <!-- External CSS for styling -->
 </head>
 <body>
     <header>
-        <h1>Error / Access Denied</h1>
+        <h1>Welcome to MC Recipe Swap</h1>
     </header>
     <main>
-        <section class="error-container">
-            <img src="error-image1.png" alt="Error Image 1" class="error-img">
-            <p class="error-message">You do not have permission to access this page.</p>
-            <img src="error-image2.png" alt="Error Image 2" class="error-img">
-        </section>
-        <section class="error-actions">
-            <button class="login-btn">Log In</button>
-            <button class="signup-btn">Sign Up</button>
-        </section>
-        <section class="error-gif">
-            <img src="error-gif.gif" alt="Error GIF">
+        <section class="welcome-container">
+            <img src="logo.png" alt="MC Recipe Swap Logo"> <!-- Logo of the platform -->
+            <p>Your go-to place for discovering and sharing amazing recipes!</p>
+            <button onclick="location.href='register.html'">Get Started</button> <!-- Button to navigate to the registration page -->
+            <button onclick="location.href='login.html'">Login</button> <!-- Button to navigate to the login page -->
+            <div class="random-images">
+                <img src="random1.jpg" alt="Random Food Image 1"> <!-- Random food image -->
+                <img src="random2.jpg" alt="Random Food Image 2"> <!-- Random food image -->
+                <img src="random3.jpg" alt="Random Food Image 3"> <!-- Random food image -->
+            </div>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2025 MC Recipe Swap. All rights reserved.</p>
+    </footer>
 </body>
 </html>

@@ -1,48 +1,46 @@
-// Import express.js
+// Import express.js and path module
 const express = require("express");
+const path = require("path");
+
+// Update the path to the db file relative to the new location of app.js
+const db = require("./services/db");
 
 // Create express app
-var app = express();
+const app = express();
 
-// Add static files location
-app.use(express.static("static"));
+// Set static files location (serve CSS, images, etc.)
+// Since app.js is in "app", we need to go up one level to reach the "src" folder
+app.use(express.static(path.join(__dirname, "..", "src")));
 
-// Get the functions in the db.js file to use
-const db = require('./services/db');
-
-// Create a route for root - /
-app.get("/", function(req, res) {
-    res.send("Hello!");
+// Serve the homepage (index.html) when accessing "/"
+// The index.html file is located in "../src/html/index.html"
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "src", "html", "index.html"));
 });
 
-// Create a route for testing the db
-app.get("/db_test", function(req, res) {
-    // Assumes a table called test_table exists in your database
-    sql = 'select * from test_table';
-    db.query(sql).then(results => {
-        console.log(results);
-        res.send(results)
-    });
+// Route for database testing
+app.get("/db_test", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM test_table";
+        const results = await db.query(sql);
+        res.json(results);
+    } catch (err) {
+        res.status(500).send("Database error");
+    }
 });
 
-// Create a route for /goodbye
-// Responds to a 'GET' request
-app.get("/goodbye", function(req, res) {
-    res.send("Goodbye world!");
-});
-
-// Create a dynamic route for /hello/<name>, where name is any value provided by user
-// At the end of the URL
-// Responds to a 'GET' request
-app.get("/hello/:name", function(req, res) {
-    // req.params contains any parameters in the request
-    // We can examine it in the console for debugging purposes
-    console.log(req.params);
-    //  Retrieve the 'name' parameter and use it in a dynamically generated page
+// Dynamic route for /hello/:name
+app.get("/hello/:name", (req, res) => {
     res.send("Hello " + req.params.name);
 });
 
+// Goodbye route
+app.get("/goodbye", (req, res) => {
+    res.send("Goodbye world!");
+});
+
 // Start server on port 3000
-app.listen(3000,function(){
-    console.log(`Server running at http://127.0.0.1:3000/`);
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running at http://127.0.0.1:${PORT}/`);
 });
