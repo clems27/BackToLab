@@ -1,46 +1,69 @@
-// Import express.js and path module
+// Import required modules
 const express = require("express");
 const path = require("path");
 
-// Update the path to the db file relative to the new location of app.js
-const db = require("./services/db");
-
-// Create express app
+// Create an Express application
 const app = express();
 
-// Set static files location (serve CSS, images, etc.)
-// Since app.js is in "app", we need to go up one level to reach the "src" folder
+// Serve static files (CSS, images, etc.) from the "src" folder
 app.use(express.static(path.join(__dirname, "..", "src")));
 
-// Serve the homepage (index.html) when accessing "/"
-// The index.html file is located in "../src/html/index.html"
+// Set Pug as the view engine and specify the directory for Pug templates
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "..", "src", "views"));
+
+/*
+  Route: Home Page
+  This route renders the home page using the "index.pug" template.
+*/
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "src", "html", "index.html"));
+  res.render("index");
 });
 
-// Route for database testing
-app.get("/db_test", async (req, res) => {
-    try {
-        const sql = "SELECT * FROM test_table";
-        const results = await db.query(sql);
-        res.json(results);
-    } catch (err) {
-        res.status(500).send("Database error");
-    }
+/*
+  Route: Recipe Details (Dynamic)
+  This dynamic route simulates fetching recipe details based on the recipe ID.
+  Static data to be replaced with a database query.
+*/
+app.get("/recipe/:id", (req, res) => {
+  const recipe = {
+    id: req.params.id,
+    title: "Spaghetti Carbonara",
+    ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Pepper"],
+    method: "Boil pasta. Cook pancetta. Mix eggs and cheese. Combine and serve.",
+    prepTime: "10 min",
+    cookTime: "20 min",
+    country: "Italy"
+  };
+  res.render("recipe", { recipe });
 });
 
-// Dynamic route for /hello/:name
+/*
+  Route: User Profile (Dynamic)
+  This dynamic route simulates a user profile page.
+  Replace the sample data with actual user information from database as needed.
+*/
+app.get("/user/:id", (req, res) => {
+  const user = {
+    id: req.params.id,
+    username: "JohnDoe",
+    email: "john@example.com",
+    skill: "Toaster",
+    recipes: ["Recipe 1", "Recipe 2", "Recipe 3"]
+  };
+  res.render("user", { user });
+});
+
+/*
+  Route: Greeting (Optional)
+  A simple dynamic route to test passing parameters.
+*/
 app.get("/hello/:name", (req, res) => {
-    res.send("Hello " + req.params.name);
+  res.send(`Hello ${req.params.name}!`);
 });
 
-// Goodbye route
-app.get("/goodbye", (req, res) => {
-    res.send("Goodbye world!");
-});
-
-// Start server on port 3000
+// Start the server on port 3000 and log a message once it is running
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server running at http://127.0.0.1:${PORT}/`);
+  console.log(`Server running at http://127.0.0.1:${PORT}/`);
 });

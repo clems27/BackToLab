@@ -1,0 +1,19 @@
+extends layout.pug
+
+block content
+  header
+    h1 User Profile
+  main
+    section.profile-container
+      .avatar-section
+        img.avatar(src="/images/avatar-placeholder.png", alt="User Avatar")
+        button.edit-btn Edit Profile
+      .user-details
+        h2= user.username
+        p Email: #{user.email}
+        p Skill Level: #{user.skill}
+        h3 Uploaded Recipes
+        ul
+          each recipe in user.recipes
+            li= recipe
+        button.logout-btn Logout
