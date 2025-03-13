@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f8f8f8;
+    background-color: #E4ECC0; /* Updated background color */
     color: #333;
     line-height: 1.6;
     display: flex;
@@ -33,7 +33,11 @@ header {
     background-color: #4CAF50;
     padding: 15px 0;
     text-align: center;
-    color: white;
+    /* The header background remains unchanged, but we update the h1 color */
+}
+
+header h1 {
+    color: #2A6554; /* Updated title color */
     font-size: 24px;
     font-weight: bold;
 }
