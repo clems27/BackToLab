@@ -21,40 +21,6 @@ app.get("/", (req, res) => {
 });
 
 /*
-  Route: Recipe Details (Dynamic)
-  This dynamic route simulates fetching recipe details based on the recipe ID.
-  Static data to be replaced with a database query.
-*/
-app.get("/recipe/:id", (req, res) => {
-  const recipe = {
-    id: req.params.id,
-    title: "Spaghetti Carbonara",
-    ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Pepper"],
-    method: "Boil pasta. Cook pancetta. Mix eggs and cheese. Combine and serve.",
-    prepTime: "10 min",
-    cookTime: "20 min",
-    country: "Italy"
-  };
-  res.render("recipe", { recipe });
-});
-
-/*
-  Route: User Profile (Dynamic)
-  This dynamic route simulates a user profile page.
-  Replace the sample data with actual user information from database as needed.
-*/
-app.get("/user/:id", (req, res) => {
-  const user = {
-    id: req.params.id,
-    username: "JohnDoe",
-    email: "john@example.com",
-    skill: "Toaster",
-    recipes: ["Recipe 1", "Recipe 2", "Recipe 3"]
-  };
-  res.render("user", { user });
-});
-
-/*
   Route: Greeting (Optional)
   A simple dynamic route to test passing parameters.
 */
