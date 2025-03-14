@@ -96,7 +96,7 @@ CREATE TABLE recipes (
 
 
 -- Insert Sample Recipes
-INSERT INTO recipes (user_id, title, description, instructions, category_id, skill_level_id, image_url) VALUES
+INSERT INTO recipes (user_id, title, description, instructions, meal_Categories_id, skill_level_id, image_url) VALUES
 (1, 'Spaghetti Bolognese', 'Classic Italian pasta dish', 'Cook pasta, prepare sauce, mix together', 1, 2, 'spaghetti.jpg'),
 (2, 'Vegan Tacos', 'Delicious Mexican vegan tacos', 'Prepare tortillas, add veggies, add salsa', 2, 1, 'tacos.jpg'),
 (3, 'Chocolate Cake', 'Decadent chocolate cake', 'Mix ingredients, bake, decorate with frosting', 4, 3, 'cake.jpg');
