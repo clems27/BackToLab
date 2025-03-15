@@ -1,11 +1,35 @@
 // Import required modules
 const express = require("express");
 const path = require("path");
+const mysql = require("mysql2")
 
 // Create an Express application
-const app = express();
+var app = express();
 
-//const db = require('./services/db/sd2-db');
+
+// Connection to database , | CONNECTION is (db)
+const db = require('./services/db')
+
+  const connection = mysql.createConnection({
+  host: 'db', // your database host
+  port: 3306,
+  user: 'root', // your database user
+  password: 'password', // your database password
+  database: 'sdb', // your database name
+});
+
+// Connect to the database
+connection.connect(err => {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+  console.log('Connected to the database.');
+});
+
+
+
+
 
 // Serve static files (CSS, images, etc.) from the "src" folder
 app.use(express.static(path.join(__dirname, "..", "src")));
@@ -24,45 +48,47 @@ app.get("/", (req, res) => {
 
 
 
+
+
 /*
-  TEST ROUTE WITH DB
+  TEST ROUTE WITH DB, WORKING
 */
 
+
+app.get("/user", function (req, res) {
+  const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
+
+  connection.query(sql, (err, results) => { // connection (db)
+    if (err) {
+      console.error("Error fetching data: " + err);
+      return res.status(500).json({ message: "Error fetching data" });
+    }
+    res.json(results); // Send the results as a JSON response
+  });
+});
+
+
+
 /*
-app.get("/all-users", function(req, res) {
-  var sql = 'select * from users'
-  var output = '<table border="1px">';
-  db.query(sql).then(results => {
-
-    res.json(results);
-  })
-  res.send("Hello All users");
-
-}); 
-
+  DYNAMIC ROUTE FOR USERS , NOT FINISHED YET
 */
 
-/*
-  DYNAMIC ROUTE FOR USERS
-*/
-/*
   app.get("/users/:id", function(req, res) {
-  var userID = req.params.id;
-  var sql = 'SELECT * FROM user'
+  const userID = req.params.id;
+  const sql = 'SELECT * FROM users';
 
-  db.query(sql, [userID]).then(results => {
-    res.render(results);
+  connection.query(sql, [userID]).then(results => {
+    res.json(results);
   })
 
 });
-*/
 
 
-/*
-  DYNAMIC ROUTE FOR RECIPES
-*/
 
 /*
+  DYNAMIC ROUTE FOR RECIPES, NOT FINISHED
+*/
+
   app.get("/recipes/:id", function(req, res) {
   var recipeID = req.params.id;
   var sql = 'SELECT * FROM recipes'
@@ -72,7 +98,7 @@ app.get("/all-users", function(req, res) {
   })
 
 });
-*/
+
 
 
 
