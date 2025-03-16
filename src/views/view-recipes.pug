@@ -1,1 +1,23 @@
-extends layout.pug 
+extends layout
+
+block content
+    h1 All Recipes
+    #recipe-list
+        each recipe in recipes
+            .recipe-card
+                h2= recipe.name
+                if recipe.image
+                    img(src=`/images/${recipe.image}`, alt=recipe.name, width="200")
+                p
+                    b Description: 
+                    | #{recipe.description}
+                p
+                    b Ingredients: 
+                    | #{recipe.ingredients}
+                p
+                    b Instructions: 
+                    | #{recipe.instructions}
+                p
+                    b Created At: 
+                    | #{recipe.created_at}
+            hr

@@ -1,0 +1,21 @@
+extends layout.pug 
+
+block content
+  .container
+    h1= recipe.title
+    .recipe-container
+      .recipe-details
+        .ingredients
+          h3 List of Ingredients
+          ul
+            each ingredient in recipe.ingredients
+              li= ingredient
+        .method
+          h3 Method
+          p= recipe.method
+      .recipe-image
+        img(src=`/images/${recipe.image || 'placeholder.jpg'}`, alt="Recipe Image")
+    .recipe-info
+      .info-box Prep Time: #{recipe.prepTime} mins
+      .info-box Cook Time: #{recipe.cookTime} mins
+      .info-box Country: #{recipe.country}
