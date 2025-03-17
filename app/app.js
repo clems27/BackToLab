@@ -17,14 +17,7 @@ var app = express();
   database: 'sdb', // your database name
 });
 
-// Connect to the database
-db2.connect(err => {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
-  }
-  console.log('Connected to the database.');
-});
+
 
 
 
@@ -59,8 +52,8 @@ app.get("/user", function (req, res) {
 
   db2.query(sql, (err, results) => { // connection (db)
     if (err) {
-      console.error("Error fetching data: " + err);
-      return res.status(500).json({ message: "Error fetching data" });
+      
+      return console.error("Error fetching data");
     }
     res.json(results); // Send the results as a JSON response
   });
@@ -80,9 +73,7 @@ app.get("/users/:id", function(req, res) {
     .then(([results]) => {
       res.json(results);
     })
-    .catch((error) => {
-      res.status(500).json({ error: error.message }); 
-    });
+
 });
 
 
@@ -100,9 +91,7 @@ app.get("/recipes/:id", function(req, res) {
     .then(([results]) => {
       res.json(results);
     })
-    .catch((error) => {
-      res.status(500).json({ error: error.message });
-    });
+
 });
 
 
