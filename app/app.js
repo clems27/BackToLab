@@ -14,7 +14,7 @@ var app = express();
   port: 3306,
   user: 'root', // your database user
   password: 'password', // your database password
-  database: 'sd2-db', // your database name
+  database: 'sdb', // your database name
 });
 
 
@@ -51,10 +51,6 @@ app.get("/user", function (req, res) {
   const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
 
   db2.query(sql, ( results) => { // connection (db)
-    if (err) {
-      
-      return console.error("Error fetching data");
-    }
     res.json(results); // Send the results as a JSON response
   });
 });
@@ -94,6 +90,15 @@ app.get("/recipes/:id", function(req, res) {
 
 });
 
+app.get("/recipes", function(req, res) {
+  const sql = 'SELECT * FROM recipes';
+
+  db2.promise().query(sql)
+    .then(([recipes_results]) => {
+      res.json(recipes_results);
+    })
+
+});
 
 
 
