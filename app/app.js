@@ -14,7 +14,7 @@ var app = express();
   port: 3306,
   user: 'root', // your database user
   password: 'password', // your database password
-  database: 'sdb', // your database name
+  database: 'sd2-db', // your database name
 });
 
 
