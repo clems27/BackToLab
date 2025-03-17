@@ -8,9 +8,8 @@ var app = express();
 
 
 // Connection to database , | CONNECTION is (db)
-const db = require('./services/db')
 
-  const connection = mysql.createConnection({
+  const db2 = mysql.createConnection({
   host: 'db', // your database host
   port: 3306,
   user: 'root', // your database user
@@ -19,7 +18,7 @@ const db = require('./services/db')
 });
 
 // Connect to the database
-connection.connect(err => {
+db2.connect(err => {
   if (err) {
     console.error('Database connection failed: ' + err.stack);
     return;
@@ -58,7 +57,7 @@ app.get("/", (req, res) => {
 app.get("/user", function (req, res) {
   const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
 
-  connection.query(sql, (err, results) => { // connection (db)
+  db2.query(sql, (err, results) => { // connection (db)
     if (err) {
       console.error("Error fetching data: " + err);
       return res.status(500).json({ message: "Error fetching data" });
@@ -70,33 +69,40 @@ app.get("/user", function (req, res) {
 
 
 /*
-  DYNAMIC ROUTE FOR USERS , NOT FINISHED YET
+  DYNAMIC ROUTE FOR USERS 
 */
 
-  app.get("/users/:id", function(req, res) {
+app.get("/users/:id", function(req, res) {
   const userID = req.params.id;
-  const sql = 'SELECT * FROM users';
+  const sql = 'SELECT * FROM users WHERE id = ?';
 
-  connection.query(sql, [userID]).then(results => {
-    res.json(results);
-  })
-
+  db2.promise().query(sql, [userID])
+    .then(([results]) => {
+      res.json(results);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message }); 
+    });
 });
 
 
 
+
 /*
-  DYNAMIC ROUTE FOR RECIPES, NOT FINISHED
+  DYNAMIC ROUTE FOR RECIPES,
 */
 
-  app.get("/recipes/:id", function(req, res) {
-  var recipeID = req.params.id;
-  var sql = 'SELECT * FROM recipes'
+app.get("/recipes/:id", function(req, res) {
+  const userID = req.params.id;
+  const sql = 'SELECT * FROM recipes WHERE id = ?';
 
-  db.query(sql, [recipeID]).then(results => {
-    res.render(results);
-  })
-
+  db2.promise().query(sql, [userID])
+    .then(([results]) => {
+      res.json(results);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    });
 });
 
 
