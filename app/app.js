@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 app.get("/user", function (req, res) {
   const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
 
-  db2.query(sql, (err, results) => { // connection (db)
+  db2.query(sql, ( results) => { // connection (db)
     if (err) {
       
       return console.error("Error fetching data");
