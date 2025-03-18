@@ -149,3 +149,118 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
         width: 100px;
     }
 }
+
+
+/* public/styles.css */
+
+/* Reset some default styles for better consistency across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  h1, h2 {
+    color: #2c3e50;
+  }
+  
+  /* Styling for the All Recipes Page */
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .recipe-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .recipe-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .recipe-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .recipe-card h2 {
+    font-size: 1.8rem;
+    margin: 15px 0;
+  }
+  
+  .recipe-card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .recipe-card a {
+    color: #3498db;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  /* Styling for the Single Recipe Page */
+  .recipe-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recipe-container img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .recipe-container h1 {
+    font-size: 2.5rem;
+    margin: 20px 0;
+  }
+  
+  .recipe-container p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+  
+  .recipe-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .recipe-container a:hover {
+    background-color: #2980b9;
+  }
+  
