@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  header
+    h1 Welcome to MC Recipe Swap
+  main
+    section.welcome-container
+      img(src="logo.png", alt="MC Recipe Swap Logo")
+      p Your go-to place for discovering and sharing amazing recipes!
+      button(onclick="location.href='register.html'") Get Started
+      button(onclick="location.href='login.html'") Login
+      .random-images
+        img(src="random1.jpg", alt="Random Food Image 1")
+        img(src="random2.jpg", alt="Random Food Image 2")
+        img(src="random3.jpg", alt="Random Food Image 3")
+  footer
+    p &copy; 2025 MC Recipe Swap. All rights reserved.

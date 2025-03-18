@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, "..", "src")));
 
 // Set Pug as the view engine and specify the directory for Pug templates
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "..", "src", "views"));
+app.set("views", path.join(__dirname, "..", "app", "views"));
 
 /*
   Route: Home Page
@@ -45,7 +45,6 @@ app.get("/", (req, res) => {
 /*
   TEST ROUTE WITH DB, WORKING
 */
-
 
 app.get("/user", function (req, res) {
   const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users

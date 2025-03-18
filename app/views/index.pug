@@ -1,0 +1,22 @@
+extends layout.pug
+
+block content
+  .container(style="padding: 20px;")
+    // Logo section
+    .logo(style="text-align: center; margin-bottom: 20px;")
+      img(src="/images/MainLogo.png", alt="MC Recipe Swap Logo", style="width: 100px; height: 100px;")
+    // Navigation Buttons
+    .nav(style="text-align: center; margin-bottom: 20px;")
+      a.btn.btn-login(style="margin-right: 10px; padding: 10px 20px; background-color:rgb(202, 168, 15); color: #fff; border-radius: 5px; text-decoration: none;", href="/html/login.html") Log In
+      a.btn.btn-guest(style="margin-right: 10px; padding: 10px 20px; background-color: #2196F3; color: #fff; border-radius: 5px; text-decoration: none;", href="/html/home.html") Continue as a Guest
+    // Welcome text
+    h1(style="text-align: center; margin-bottom: 10px;") Welcome to MC Recipe Swap App!
+    p.welcome-text(style="text-align: center; margin-bottom: 20px; font-size: 1.1em;") Share and discover amazing recipes - even from the smallest corners of the World.
+    // Get Started button
+    .get-started(style="text-align: center; margin-bottom: 20px;")
+      a.btn.btn-getstarted(style="padding: 12px 25px; background-color:rgb(244, 98, 54); color: #fff; border-radius: 5px; text-decoration: none;", href="/html/register.html") Get Started
+    // Food Images (displayed vertically and centered)
+    .food-images(style="text-align: center;")
+      img.food-img(src="/images/food1.jpg", alt="Food 1", style="display: block; margin: 10px auto;")
+      img.food-img(src="/images/food2.jpg", alt="Food 2", style="display: block; margin: 10px auto;")
+      img.food-img(src="/images/food3.jpg", alt="Food 3", style="display: block; margin: 10px auto;")
