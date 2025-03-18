@@ -174,6 +174,55 @@ app.get('/home', (req, res) => {
     });
 });
 
+
+
+app.get("/recipes/search/results", (req, res) => {
+  const recipeId = req.query.id; // Get the recipe ID from the query string
+
+  if (!recipeId) {
+    return res.render("search", { recipe: null, message: "Please enter a recipe ID" });
+  }
+
+  // SQL query to fetch recipe and ingredients
+  const sql = `
+    SELECT r.id, r.title, r.description, r.instructions, r.image_url, 
+           i.name AS ingredient_name, i.quantity, i.unit
+    FROM recipes r
+    LEFT JOIN ingredients i ON r.id = i.recipe_id
+    WHERE r.id = ?
+  `;
+
+  db2.promise().query(sql, [recipeId])
+    .then(([results]) => {
+      if (results.length > 0) {
+        // Structure the recipe data
+        const recipe = {
+          id: results[0].id,
+          title: results[0].title,
+          description: results[0].description,
+          instructions: results[0].instructions,
+          image_url: results[0].image_url,
+          ingredients: results.map(ingredient => ({
+            name: ingredient.ingredient_name,
+            quantity: ingredient.quantity,
+            unit: ingredient.unit
+          }))
+        };
+
+        // Render the search page with the found recipe
+        res.render("search", { recipe, message: null });
+      } else {
+        res.render("search", { recipe: null, message: "Recipe not found" });
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching recipe:", err);
+      res.status(500).send("Error fetching recipe");
+    });
+});
+
+
+
 // Start the server on port 3000
 const PORT = 3000;
 app.listen(PORT, () => {
