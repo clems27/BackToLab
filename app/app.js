@@ -8,7 +8,6 @@ var app = express();
 
 
 // Connection to database , | CONNECTION is (db)
-
   const db2 = mysql.createConnection({
   host: 'db', // your database host
   port: 3306,
@@ -17,30 +16,19 @@ var app = express();
   database: 'sdb', // your database name
 });
 
-
-
-
-
-
-
 // Serve static files (CSS, images, etc.) from the "src" folder
-app.use(express.static(path.join(__dirname, "..", "src")));
+app.use(express.static(path.join(__dirname, "..", "static")));
 
 // Set Pug as the view engine and specify the directory for Pug templates
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "..", "app", "views"));
 
 /*
-  Route: Home Page
-  This route renders the home page using the "index.pug" template.
+  Routes the default home page "index.pug"
 */
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-
-
-
 
 /*
   TEST ROUTE WITH DB, WORKING
@@ -71,9 +59,6 @@ app.get("/users/:id", function(req, res) {
 
 });
 
-
-
-
 /*
   DYNAMIC ROUTE FOR RECIPES,
 */
@@ -98,8 +83,6 @@ app.get("/recipes", function(req, res) {
     })
 
 });
-
-
 
 
 // Start the server on port 3000 and log a message once it is running
