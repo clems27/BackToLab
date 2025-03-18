@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const mysql = require('mysql2/promise');
-
+// missing require
 const config = {
   db: {
     host: process.env.MYSQL_HOST,  // Using MYSQL_HOST for local connection

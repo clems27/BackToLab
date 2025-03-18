@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // views/users.pug
 
 extends layout.pug
@@ -21,3 +22,24 @@ block content
             td= user.email
             td= user.created_at
 
+=======
+extend layout.pug 
+
+block content
+  header
+    h1 All Users
+  main
+    section.profile-container
+      .avatar-section
+        img.avatar(src="/images/avatar-placeholder.png", alt="User Avatar")
+        button.edit-btn Edit Profile
+      .user-details
+        h2= user.username
+        p Email: #{user.email}
+        p Skill Level: #{user.skill}
+        h3 Uploaded Recipes
+        ul
+          each recipe in user.recipes
+            li= recipe
+        button.logout-btn Logout
+>>>>>>> 416b596274708950695b985888f373bd0ad80f8e

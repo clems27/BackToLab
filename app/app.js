@@ -49,11 +49,7 @@ app.get("/", (req, res) => {
 app.get("/user", function (req, res) {
   const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
 
-  db2.query(sql, (err, results) => { // connection (db)
-    if (err) {
-      
-      return console.error("Error fetching data");
-    }
+  db2.query(sql, ( results) => { // connection (db)
     res.json(results); // Send the results as a JSON response
   });
 });
@@ -93,6 +89,15 @@ app.get("/recipes/:id", function(req, res) {
 
 });
 
+app.get("/recipes", function(req, res) {
+  const sql = 'SELECT * FROM recipes';
+
+  db2.promise().query(sql)
+    .then(([recipes_results]) => {
+      res.json(recipes_results);
+    })
+
+});
 
 
 

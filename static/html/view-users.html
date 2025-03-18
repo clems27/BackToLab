@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Users</title>
+</head>
+<body>
+    <h1>User List</h1>
+    <form action="/view-user-profile" method="GET">
+        <label>Select a User:</label>
+        <select name="selected_user">
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">GO</button>
+    </form>
+</body>
+</html>
