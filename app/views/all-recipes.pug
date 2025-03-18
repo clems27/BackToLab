@@ -1,0 +1,19 @@
+//- views/all-recipes.pug
+doctype html
+html
+  head
+    title All Recipes
+    link(rel="stylesheet", href="/styles.css")
+  body
+    h1 All Recipes
+
+    if recipes.length
+      each recipe in recipes
+        .recipe-card
+          a(href="/recipes/" + recipe.id)
+            img(src=recipe.image, alt=recipe.title)
+            h2= recipe.title
+          p Ingredients: #{recipe.ingredients}
+          p Instructions: #{recipe.instructions}
+    else
+      p No recipes found.
