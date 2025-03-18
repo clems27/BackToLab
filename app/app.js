@@ -30,6 +30,40 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/home", (req, res) => {
+  res.render("home");
+});
+
+app.get("/search_recipes", (req, res) => {
+  res.render("search_recipes");
+});
+
+app.get("/upload", (req, res) => {
+  res.render("upload");
+});
+
+/*
+  Route to render the shopping list form
+*/
+
+/*
+  Route to render the shopping list form
+*/
+app.get("/shopping_list", (req, res) => {
+  res.render("create_shopping_list");
+});
+
+/*
+  Route to handle shopping list form submission
+*/
+app.post("/save-shopping-list", (req, res) => {
+  const rawList = req.body.shoppingList || "";
+  const shoppingList = rawList.split("\n").map(item => item.trim()).filter(item => item.length > 0);
+  // Logic to save 'shoppingList' to a database or file can be added here
+  res.render("shopping_list", { shoppingList });
+});
+
+
 /*
   TEST ROUTE WITH DB, WORKING
 */

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .container(style="margin: 0 auto; padding: 20px; text-align: center;")
+    h1 Shopping List
+    if shoppingList && shoppingList.length
+      table(style="width: 100%; border-collapse: collapse; margin-top: 20px;")
+        thead
+          tr
+            th(style="border: 1px solid #ccc; padding: 10px; background-color: #f4f4f9;") Item
+        tbody
+          each item in shoppingList
+            tr
+              td(style="border: 1px solid #ccc; padding: 10px;")= item
+    else
+      p No shopping list available.

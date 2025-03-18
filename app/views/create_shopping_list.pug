@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .container(style="margin: 0 auto; padding: 20px; text-align: center;")
+    h1 Shopping List
+    form(action="/save-shopping-list" method="POST")
+      //- A large textarea for the shopping list input
+      textarea(name="shoppingList", placeholder="Enter your shopping items here...", rows="10", style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;")
+      .button-container(style="margin-top: 10px; text-align: right;")
+        button(type="submit", style="background-color: #28a745; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;") Create Shopping List
