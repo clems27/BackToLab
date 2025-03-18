@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-// views/users.pug
-
-extends layout.pug
-
-block content
-  .container
-    h1 Users List
-
-    table
-      thead
-        tr
-          th ID
-          th Name
-          th Email
-          th Created At
-      tbody
-        each user in users
-          tr
-            td= user.id
-            td= user.name
-            td= user.email
-            td= user.created_at
-
-=======
 extend layout.pug 
 
 block content
@@ -42,4 +17,3 @@ block content
           each recipe in user.recipes
             li= recipe
         button.logout-btn Logout
->>>>>>> 416b596274708950695b985888f373bd0ad80f8e

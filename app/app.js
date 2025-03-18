@@ -49,7 +49,7 @@ app.get("/user", function (req, res) {
 /*
   DYNAMIC ROUTE FOR USERS
 */
-app.get("/users/:id", function (req, res) {
+app.get("/user/:id", function (req, res) {
   const userID = req.params.id;
   const sql = 'SELECT * FROM users WHERE id = ?';
 
