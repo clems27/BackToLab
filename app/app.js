@@ -34,12 +34,20 @@ app.get("/home", (req, res) => {
   res.render("home");
 });
 
-app.get("/search_recipes", (req, res) => {
-  res.render("search_recipes");
+app.get("/search_recipe", (req, res) => {
+  res.render("search_recipe");
 });
 
 app.get("/upload", (req, res) => {
   res.render("upload");
+});
+
+app.get("/login", (req,res) => {
+  res.render("login");
+});
+
+app.get("/register", (req,res) => {
+  res.render("register");
 });
 
 /*

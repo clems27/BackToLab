@@ -1,37 +1,40 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Upload Your Recipe
-    link(rel="stylesheet" href="../css/styles.css")
-  body
-    .container
-      h1.title Upload Your Recipe
-      form(action="#" method="post" enctype="multipart/form-data")
-        label(for="dish-name") Dish Name:
-        input(type="text" id="dish-name" name="dish-name" required)
-        
-        label(for="country-origin") Country of Origin:
-        input(type="text" id="country-origin" name="country-origin" required)
-        
-        .flex-container
-          .input-group
-            label(for="ingredients") Ingredients:
-            textarea(id="ingredients" name="ingredients" required)
-          .input-group
-            label(for="method") Method:
-            textarea(id="method" name="method" required)
-        
-        .flex-container
-          .input-group
-            label(for="prep-duration") Preparation Duration:
-            input(type="text" id="prep-duration" name="prep-duration" required)
-          .input-group
-            label(for="cook-duration") Cooking Duration:
-            input(type="text" id="cook-duration" name="cook-duration" required)
-        
-        label(for="upload-image") Upload Image:
-        input(type="file" id="upload-image" name="upload-image" accept="image/*" required)
-        
-        button.submit-btn(type="submit") Submit
+extends layout.pug
+
+block content
+  doctype html
+  html(lang="en")
+    head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title Upload Your Recipe
+      link(rel="stylesheet" href="../css/styles.css")
+    body
+      .container
+        h1.title Upload Your Recipe
+        form(action="#" method="post" enctype="multipart/form-data")
+          label(for="dish-name") Dish Name:
+          input(type="text" id="dish-name" name="dish-name" required)
+          
+          label(for="country-origin") Country of Origin:
+          input(type="text" id="country-origin" name="country-origin" required)
+          
+          .flex-container
+            .input-group
+              label(for="ingredients") Ingredients:
+              textarea(id="ingredients" name="ingredients" required)
+            .input-group
+              label(for="method") Method:
+              textarea(id="method" name="method" required)
+          
+          .flex-container
+            .input-group
+              label(for="prep-duration") Preparation Duration:
+              input(type="text" id="prep-duration" name="prep-duration" required)
+            .input-group
+              label(for="cook-duration") Cooking Duration:
+              input(type="text" id="cook-duration" name="cook-duration" required)
+          
+          label(for="upload-image") Upload Image:
+          input(type="file" id="upload-image" name="upload-image" accept="image/*" required)
+          
+          button.submit-btn(type="submit") Submit
