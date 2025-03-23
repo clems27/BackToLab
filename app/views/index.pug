@@ -4,19 +4,35 @@ block content
   .container(style="padding: 20px;")
     // Logo section
     .logo(style="text-align: center; margin-bottom: 20px;")
-      img(src="/images/MainLogo.png", alt="MC Recipe Swap Logo", style="width: 200px; height: 220px;")
+      img(src="/images/MainLogo.png", alt="MC Recipe Swap Logo", style="width: 130px; height: 160px;")
+    
     // Navigation Buttons
     .nav(style="text-align: center; margin-bottom: 20px;")
       a.btn.btn-login(style="margin-right: 10px; padding: 10px 20px; background-color:rgb(202, 168, 15); color: #fff; border-radius: 5px; text-decoration: none;", href="/login") Log In
       a.btn.btn-guest(style="margin-right: 10px; padding: 10px 20px; background-color: #2196F3; color: #fff; border-radius: 5px; text-decoration: none;", href="/home") Continue as a Guest
+
     // Welcome text
     h1(style="text-align: center; margin-bottom: 10px;") Welcome to MC Recipe Swap App!
     p.welcome-text(style="text-align: center; margin-bottom: 20px; font-size: 1.1em;") Share and discover amazing recipes - even from the smallest corners of the World.
+
     // Get Started button
     .get-started(style="text-align: center; margin-bottom: 20px;")
       a.btn.btn-getstarted(style="padding: 12px 25px; background-color:rgb(244, 98, 54); color: #fff; border-radius: 5px; text-decoration: none;", href="/register") Get Started
-    // Food Images (displayed vertically and centered)
-    .food-images(style="text-align: center;")
-      img.food-img(src="/images/food1.jpg", alt="Food 1", style="display: block; margin: 10px auto; width: 600px; height: 300px;")
-      img.food-img(src="/images/food2.jpg", alt="Food 2", style="display: block; margin: 10px auto; width: 600px; height: 300px;")
-      img.food-img(src="/images/food3.jpg", alt="Food 3", style="display: block; margin: 10px auto; width: 600px; height: 300px;")
+    // Food Images Carousel
+    .carousel.slide(id="foodCarousel" data-bs-ride="carousel" style="width: 600px; margin: 20px auto;")
+      .carousel-inner
+        each image, index in images
+          .carousel-item(class= index === 0 ? 'active' : '')
+            img(src=image.src, alt=image.alt, style="width: 100%; height: 300px; margin: 10px auto;")
+
+      // Carousel controls
+      button.carousel-control-prev(type="button", data-bs-target="#foodCarousel", data-bs-slide="prev")
+        span.carousel-control-prev-icon(aria-hidden="true")
+        span.sr-only Previous
+
+      button.carousel-control-next(type="button", data-bs-target="#foodCarousel", data-bs-slide="next")
+        span.carousel-control-next-icon(aria-hidden="true")
+        span.sr-only Next
+
+    footer
+      p © 2025 MC Recipes Application. All rights reserved.
