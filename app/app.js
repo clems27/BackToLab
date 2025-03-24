@@ -2,199 +2,164 @@
 const express = require("express");
 const path = require("path");
 const mysql = require("mysql2");
+const multer = require("multer");
+const { randomInt } = require("crypto");
+
 
 // Create an Express application
 var app = express();
 
 // Connection to database (db2)
-const db2 = mysql.createConnection({
-  host: 'db', // your database host
-  port: 3306,
-  user: 'root', // your database user
-  password: 'password', // your database password
-  database: 'sdb', // your database name
-});
+const db2 = require("./services/db");
 
-// Serve static files (CSS, images, etc.) from the "src" folder
+// Serve static files (CSS, images, etc.) from the "static" folder
 app.use(express.static(path.join(__dirname, "..", "static")));
 
 // Set Pug as the view engine and specify the directory for Pug templates
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "..", "app", "views"));
 
-/*
-  Route: Home Page
-  This route renders the home page using the "index.pug" template.
-*/
-app.get("/", (req, res) => {
-  res.render("index");
-});
-
+// Route: Home Page (fetch recipes from DB dynamically)
 app.get("/home", (req, res) => {
-  res.render("home");
+  const sql = "SELECT * FROM recipes";
+
+  db2.promise()
+    .query(sql)
+    .then(([recipes]) => {
+      res.render("home", { recipes });
+    })
+    .catch((err) => {
+      console.error("Error fetching recipes:", err);
+      res.status(500).send("Error fetching recipes");
+    });
 });
 
-app.get("/search_recipe", (req, res) => {
-  res.render("search_recipe");
+// Static Routes for Pages
+app.get("/search_recipe", (req, res) => res.render("search_recipe"));
+app.get("/upload", (req, res) => res.render("upload"));
+app.get("/login", (req, res) => res.render("login"));
+app.get("/register", (req, res) => res.render("register"));
+app.get("/shopping_list", (req, res) => res.render("create_shopping_list"));
+
+// Home page with randomized food images
+app.get("/", (req, res) => {
+  const foodImages = [
+    { src: "/images/food1.jpg", alt: "Food 1" },
+    { src: "/images/food2.jpg", alt: "Food 2" },
+    { src: "/images/food3.jpg", alt: "Food 3" },
+    { src: "/images/food4.jpg", alt: "Food 4" },
+    { src: "/images/food5.jpg", alt: "Food 5" },
+  ];
+
+  // Randomly select an image
+  const shuffledImages = foodImages.sort(() => 0.5 - Math.random()).slice(0, 1);
+  res.render("index", { images: shuffledImages });
 });
 
-app.get("/upload", (req, res) => {
-  res.render("upload");
-});
-
-app.get("/login", (req,res) => {
-  res.render("login");
-});
-
-app.get("/register", (req,res) => {
-  res.render("register");
-});
-
-/*
-  Route to render the shopping list form
-*/
-
-/*
-  Route to render the shopping list form
-*/
-app.get("/shopping_list", (req, res) => {
-  res.render("create_shopping_list");
-});
-
-/*
-  Route to handle shopping list form submission
-*/
+// Save Shopping List
 app.post("/save-shopping-list", (req, res) => {
   const rawList = req.body.shoppingList || "";
-  const shoppingList = rawList.split("\n").map(item => item.trim()).filter(item => item.length > 0);
-  // Logic to save 'shoppingList' to a database or file can be added here
-  res.render("shopping_list", { shoppingList });
+  const shoppingList = rawList.split("\n").map((item) => item.trim()).filter((item) => item.length > 0);
+  res.render("shopping_list", { shoppingList });
 });
 
-
-/*
-  TEST ROUTE WITH DB, WORKING
-*/
+// Fetch all users from DB
 app.get("/user", function (req, res) {
-  const sql = 'SELECT * FROM users'; // Your SQL query to fetch all users
+  const sql = "SELECT * FROM users";
 
-  db2.query(sql, (err, results) => { // connection (db)
+  db2.query(sql, (err, results) => {
     if (err) {
-      console.log('Error fetching users:', err);
-      res.status(500).send('Error fetching users');
+      console.error("Error fetching users:", err);
+      res.status(500).send("Error fetching users");
       return;
     }
-    res.json(results); // Send the results as a JSON response
+    res.json(results);
   });
 });
 
-/*
-  DYNAMIC ROUTE FOR USERS
-*/
+// Dynamic Route for Single User
 app.get("/user/:id", function (req, res) {
   const userID = req.params.id;
-  const sql = 'SELECT * FROM users WHERE id = ?';
+  const sql = "SELECT * FROM users WHERE id = ?";
 
-  db2.promise().query(sql, [userID])
+  db2.promise()
+    .query(sql, [userID])
     .then(([results]) => {
       res.json(results);
     })
     .catch((err) => {
-      console.log('Error fetching user:', err);
-      res.status(500).send('Error fetching user');
+      console.error("Error fetching user:", err);
+      res.status(500).send("Error fetching user");
     });
 });
 
-/*
-  DYNAMIC ROUTE FOR RECIPES
-  This will fetch and render a single recipe
-*/
+// Fetch and render a single recipe
 app.get("/recipes/:id", function (req, res) {
   const recipeID = req.params.id;
-
-  // SQL query to get the recipe and its ingredients
   const sql = `
-    SELECT r.id, r.title, r.description, r.instructions, r.image_url, i.name AS ingredient_name, i.quantity, i.unit
+    SELECT r.id, r.title, r.description, r.instructions, r.image_url, 
+           i.name AS ingredient_name, i.quantity, i.unit
     FROM recipes r
     LEFT JOIN ingredients i ON r.id = i.recipe_id
     WHERE r.id = ?
   `;
 
-  db2.promise().query(sql, [recipeID])
+  db2.promise()
+    .query(sql, [recipeID])
     .then(([results]) => {
       if (results.length > 0) {
-        // Separate the ingredients for rendering
         const recipe = {
           id: results[0].id,
           title: results[0].title,
           description: results[0].description,
           instructions: results[0].instructions,
           image: results[0].image_url,
-          ingredients: results.map(ingredient => ({
+          ingredients: results.map((ingredient) => ({
             name: ingredient.ingredient_name,
             quantity: ingredient.quantity,
-            unit: ingredient.unit
-          }))
+            unit: ingredient.unit,
+          })),
         };
-        
-        // Render the recipe template with recipe and ingredients
-        res.render('recipe', { recipe });
+
+        res.render("recipe", { recipe });
       } else {
-        res.status(404).send('Recipe not found');
+        res.status(404).send("Recipe not found");
       }
     })
     .catch((err) => {
-      console.log('Error fetching recipe:', err);
-      res.status(500).send('Error fetching recipe');
+      console.error("Error fetching recipe:", err);
+      res.status(500).send("Error fetching recipe");
     });
 });
 
-/*
-  DYNAMIC ROUTE FOR ALL RECIPES
-  This will fetch and render all recipes
-*/
+// Fetch and render all recipes
 app.get("/recipes", function (req, res) {
-  const sql = 'SELECT * FROM recipes';
+  const sql = "SELECT * FROM recipes";
 
-  db2.promise().query(sql)
-    .then(([recipes_results]) => {
-      res.render('all-recipes', { recipes: recipes_results });
+  db2.promise()
+    .query(sql)
+    .then(([recipes]) => {
+      res.render("all-recipes", { recipes });
     })
     .catch((err) => {
-      console.log('Error fetching recipes:', err);
-      res.status(500).send('Error fetching recipes');
+      console.error("Error fetching recipes:", err);
+      res.status(500).send("Error fetching recipes");
     });
 });
 
-/*
-  This route will render a home page dynamically based on users
-*/
-app.get('/home', (req, res) => {
-  const sql = 'SELECT * FROM users'; // Query to get all users
-
-  db2.promise().query(sql)
-    .then(([users]) => {
-      res.render('home', { users });
-    })
-    .catch((err) => {
-      console.log('Error fetching users:', err);
-      res.status(500).send('Error fetching users');
-    });
-});
-
-
-
+// Recipe Search by ID
 app.get("/recipes/search/results", (req, res) => {
   const recipeId = req.query.id;
 
-  console.log("Searching for Recipe ID:", recipeId); // Debugging log
+  console.log("Searching for Recipe ID:", recipeId); // Debug log
 
-  const sql = 'SELECT * FROM recipes WHERE id = ?';
+  const sql = "SELECT * FROM recipes WHERE id = ?";
 
-  db2.promise().query(sql, [recipeId])
+  db2.promise()
+    .query(sql, [recipeId])
     .then(([results]) => {
-      console.log("Query Results:", results); // Log results to check what the query returns
-      
+      console.log("Query Results:", results); // Debug log
+
       if (results.length > 0) {
         res.render("search", { recipe: results[0] });
       } else {
@@ -207,10 +172,15 @@ app.get("/recipes/search/results", (req, res) => {
     });
 });
 
-app.get("/recipes/search", (req, res) => {
-  res.render("search"); // Make sure this file exists in views/
+// Configure Multer Storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", "static", "images")); 
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
 });
-
 
 
 
