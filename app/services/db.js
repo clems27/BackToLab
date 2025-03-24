@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise');
 // missing require
 const config = {
   db: {
-    host: process.env.MYSQL_HOST,  // Using MYSQL_HOST for local connection
+    host: process.env.DB_CONTAINER,  // Using MYSQL_HOST for local connection
     port: process.env.DB_PORT,
     user: process.env.MYSQL_ROOT_USER,
     password: process.env.MYSQL_ROOT_PASSWORD,

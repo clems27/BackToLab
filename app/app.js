@@ -10,13 +10,7 @@ const { randomInt } = require("crypto");
 var app = express();
 
 // Connection to database (db2)
-const db2 = mysql.createConnection({
-  host: "db",
-  port: 3306,
-  user: "root",
-  password: "password",
-  database: "sdb",
-});
+const db2 = require("./services/db")
 
 // Serve static files (CSS, images, etc.) from the "static" folder
 app.use(express.static(path.join(__dirname, "..", "static")));
@@ -29,8 +23,7 @@ app.set("views", path.join(__dirname, "..", "app", "views"));
 app.get("/home", (req, res) => {
   const sql = "SELECT * FROM recipes";
 
-  db2.promise()
-    .query(sql)
+  db2.query(sql)
     .then(([recipes]) => {
       res.render("home", { recipes });
     })
