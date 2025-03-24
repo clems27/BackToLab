@@ -10,7 +10,13 @@ const { randomInt } = require("crypto");
 var app = express();
 
 // Connection to database (db2)
-const db2 = require("./services/db");
+const db2 = mysql.createConnection({
+  host: "db",
+  port: 3306,
+  user: "root",
+  password: "password",
+  database: "sdb",
+});
 
 // Serve static files (CSS, images, etc.) from the "static" folder
 app.use(express.static(path.join(__dirname, "..", "static")));
