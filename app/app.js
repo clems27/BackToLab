@@ -19,20 +19,6 @@ app.use(express.static(path.join(__dirname, "..", "static")));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "..", "app", "views"));
 
-// Route: Home Page (fetch recipes from DB dynamically)
-app.get("/home", (req, res) => {
-  const sql = "SELECT * FROM recipes";
-
-  db2.query(sql)
-    .then(([recipes]) => {
-      res.render("home", { recipes });
-    })
-    .catch((err) => {
-      console.error("Error fetching recipes:", err);
-      res.status(500).send("Error fetching recipes");
-    });
-});
-
 // Static Routes for Pages
 app.get("/search_recipe", (req, res) => res.render("search_recipe"));
 app.get("/upload", (req, res) => res.render("upload"));
@@ -62,18 +48,32 @@ app.post("/save-shopping-list", (req, res) => {
   res.render("shopping_list", { shoppingList });
 });
 
+// Route: Home Page (fetch recipes from DB dynamically)
+app.get("/home", (req, res) => {
+  const sql = "SELECT * FROM recipes";
+
+  db2.query(sql)
+    .then(([recipes]) => {
+      res.render("home", { recipes });
+    })
+    .catch((err) => {
+      console.error("Error fetching recipes:", err);
+      res.status(500).send("Error fetching recipes");
+    });
+});
+
 // Fetch all users from DB
 app.get("/user", function (req, res) {
   const sql = "SELECT * FROM users";
 
-  db2.query(sql, (err, results) => {
-    if (err) {
+  db2.query(sql)
+    .then(([results]) => {
+      res.json(results);  // Respond with the users' data as JSON
+    })
+    .catch((err) => {
       console.error("Error fetching users:", err);
       res.status(500).send("Error fetching users");
-      return;
-    }
-    res.json(results);
-  });
+    });
 });
 
 // Dynamic Route for Single User
@@ -81,8 +81,7 @@ app.get("/user/:id", function (req, res) {
   const userID = req.params.id;
   const sql = "SELECT * FROM users WHERE id = ?";
 
-  db2.promise()
-    .query(sql, [userID])
+  db2.query(sql, [userID])
     .then(([results]) => {
       res.json(results);
     })
@@ -103,8 +102,7 @@ app.get("/recipes/:id", function (req, res) {
     WHERE r.id = ?
   `;
 
-  db2.promise()
-    .query(sql, [recipeID])
+  db2.query(sql, [recipeID])
     .then(([results]) => {
       if (results.length > 0) {
         const recipe = {
@@ -135,8 +133,7 @@ app.get("/recipes/:id", function (req, res) {
 app.get("/recipes", function (req, res) {
   const sql = "SELECT * FROM recipes";
 
-  db2.promise()
-    .query(sql)
+  db2.query(sql)
     .then(([recipes]) => {
       res.render("all-recipes", { recipes });
     })
@@ -154,8 +151,7 @@ app.get("/recipes/search/results", (req, res) => {
 
   const sql = "SELECT * FROM recipes WHERE id = ?";
 
-  db2.promise()
-    .query(sql, [recipeId])
+  db2.query(sql, [recipeId])
     .then(([results]) => {
       console.log("Query Results:", results); // Debug log
 
