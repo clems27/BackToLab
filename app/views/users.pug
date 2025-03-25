@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  header
+    h1 All Users + Roles
+  main
+    section.users-list
+      if users.length > 0
+        ul
+          each user in users
+            li
+              a(href=`/user/${user.id}`) #{user.username}
+              p Email: #{user.email}
+              p Role: #{user.role}
+      else
+        p No users found.
+

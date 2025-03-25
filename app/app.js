@@ -9,8 +9,8 @@ const { randomInt } = require("crypto");
 // Create an Express application
 var app = express();
 
-// Connection to database (db2)
-const db2 = require("./services/db")
+// Connection to database (db)
+const db = require("./services/db")
 
 // Serve static files (CSS, images, etc.) from the "static" folder
 app.use(express.static(path.join(__dirname, "..", "static")));
@@ -52,7 +52,7 @@ app.post("/save-shopping-list", (req, res) => {
 app.get("/home", (req, res) => {
   const sql = "SELECT * FROM recipes";
 
-  db2.query(sql)
+  db.query(sql)
     .then(([recipes]) => {
       res.render("home", { recipes });
     })
@@ -62,13 +62,13 @@ app.get("/home", (req, res) => {
     });
 });
 
-// Fetch all users from DB
+// Fetch all users from DB 
 app.get("/user", function (req, res) {
   const sql = "SELECT * FROM users";
 
-  db2.query(sql)
-    .then(([results]) => {
-      res.json(results);  // Respond with the users' data as JSON
+  db.query(sql)
+    .then((users) => {
+      res.render("users", { users });  
     })
     .catch((err) => {
       console.error("Error fetching users:", err);
@@ -76,12 +76,14 @@ app.get("/user", function (req, res) {
     });
 });
 
+
+
 // Dynamic Route for Single User
 app.get("/user/:id", function (req, res) {
   const userID = req.params.id;
   const sql = "SELECT * FROM users WHERE id = ?";
 
-  db2.query(sql, [userID])
+  db.query(sql, [userID])
     .then(([results]) => {
       res.json(results);
     })
@@ -102,7 +104,7 @@ app.get("/recipes/:id", function (req, res) {
     WHERE r.id = ?
   `;
 
-  db2.query(sql, [recipeID])
+  db.query(sql, [recipeID])
     .then(([results]) => {
       if (results.length > 0) {
         const recipe = {
@@ -133,7 +135,7 @@ app.get("/recipes/:id", function (req, res) {
 app.get("/recipes", function (req, res) {
   const sql = "SELECT * FROM recipes";
 
-  db2.query(sql)
+  db.query(sql)
     .then(([recipes]) => {
       res.render("all-recipes", { recipes });
     })
@@ -151,7 +153,7 @@ app.get("/recipes/search/results", (req, res) => {
 
   const sql = "SELECT * FROM recipes WHERE id = ?";
 
-  db2.query(sql, [recipeId])
+  db.query(sql, [recipeId])
     .then(([results]) => {
       console.log("Query Results:", results); // Debug log
 
