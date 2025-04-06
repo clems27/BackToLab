@@ -11,12 +11,16 @@ block content
     body
       .container
         h2 Register User
-        form
-          input(type="text" placeholder="Username" required)
-          input(type="email" placeholder="E-mail" required)
-          input(type="password" placeholder="Password" required)
-          input(type="password" placeholder="Confirm Password" required)
+        
+        if message
+          p(style="color: red;")= message
+
+        form(action="/register" method="post")
+          input(type="text" name="username" placeholder="Username" required)
+          input(type="email" name="email" placeholder="E-mail" required)
+          input(type="password" name="password" placeholder="Password" required)
+          input(type="password" name="confirmPassword" placeholder="Confirm Password" required)
           button.btn(type="submit") Sign Up
         p.bottom-text
           | Already have an account? 
-          button.btn(href="/login") Log In
+          a.btn(href="/login") Log In
