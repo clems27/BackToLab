@@ -380,4 +380,78 @@ ul li {
   }
 }
 
-  
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.submit-btn, .back-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.submit-btn {
+  background-color: #28a745;
+}
+
+.back-btn {
+  background-color: #007bff;
+}
+
+.submit-btn:hover, .back-btn:hover {
+  opacity: 0.9;
+}
+
+/* Header Navigation Styling */
+header nav {
+  display: flex;
+  gap: 20px; /* Space between links */
+  justify-content: center;
+  padding: 15px;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.actions form {
+  display: inline-block;
+}
+
+button {
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"] {
+  padding: 5px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
