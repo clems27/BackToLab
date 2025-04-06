@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .edit-profile-container
+    h1 Edit Profile
+
+    if error
+      .alert.alert-danger #{error}
+    if success
+      .alert.alert-success #{success}
+
+    form(action="/update-profile", method="POST")
+      label(for="username") Username
+      input(type="text", name="username", value=user.username, required)
+
+      label(for="email") Email
+      input(type="email", name="email", value=user.email, required)
+
+      label(for="role") Role
+      select(name="role", required)
+        option(value="REGISTERED_USER", selected=(user.role === 'REGISTERED_USER')) Registered User
+        option(value="MODERATOR", selected=(user.role === 'MODERATOR')) Moderator
+
+      label(for="skill_level_id") Skill Level
+      select(name="skill_level_id", required)
+        option(value="1", selected=(user.skill_level_id == 1)) Toaster
+        option(value="2", selected=(user.skill_level_id == 2)) Sizzler
+        option(value="3", selected=(user.skill_level_id == 3)) Flambé
+
+      button(type="submit") Update
+
+    a.button(href="/dashboard") Back to Dashboard
