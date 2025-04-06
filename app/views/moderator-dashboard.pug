@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  h1 Moderator Dashboard
+  p Welcome, #{user.username}! You are logged in as a moderator.
+
+  // Success/Error Messages
+  if success
+    .alert.alert-success
+      p= success
+  if error
+    .alert.alert-danger
+      p= error
+
+  // Flagged Items Section
+  h2 Flagged Content
+  table
+    thead
+      tr
+        th Content ID
+        th Reason
+        th Actions
+    tbody
+      if flaggedItems && flaggedItems.length > 0
+        each item in flaggedItems
+          tr
+            td= item.id
+            td= item.reason
+            td
+              a(href=`/resolve-flag/${item.id}`) Resolve
+              a(href=`/delete-flag/${item.id}`) Delete
+      else
+        tr
+          td(colspan="3") No flagged content found
+
+  // Users Section
+  h2 Users
+  table
+    thead
+      tr
+        th User ID
+        th Username
+        th Email
+        th Role
+        th Actions
+    tbody
+      each user in users
+        tr
+          td= user.id
+          td= user.username
+          td= user.email
+          td= user.role
+          td
+            a(href=`/edit-user/${user.id}`) Edit
+            a(href=`/delete-user/${user.id}`) Delete
+
+  // Recipes Section
+  h2 Recipes
+  table
+    thead
+      tr
+        th Recipe ID
+        th Title
+        th Author
+        th Skill Level
+        th Actions
+    tbody
+      each recipe in recipes
+        tr
+          td= recipe.id
+          td= recipe.title
+          td= recipe.author
+          td= recipe.skill_level
+          td
+            a(href=`/edit-recipe/${recipe.id}`) Edit
+            a(href=`/delete-recipe/${recipe.id}`) Delete
