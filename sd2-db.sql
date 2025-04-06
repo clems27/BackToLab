@@ -155,3 +155,13 @@ INSERT INTO ingredients (recipe_id, name, quantity, unit) VALUES
 (5, 'Cheese', '50', 'grams'),
 (5, 'Lettuce', '1', 'cup'),
 (5, 'Salsa', '2', 'tablespoons');
+
+CREATE TABLE shopping_list (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  item_name VARCHAR(255) NOT NULL,
+  quantity VARCHAR(100),
+  category VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
