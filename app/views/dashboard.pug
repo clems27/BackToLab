@@ -1,0 +1,60 @@
+extends layout
+
+block content
+  .dashboard-container
+    h1 #{title}
+
+    .user-info
+      h2 User Information
+      p Username: #{user && user.username ? user.username : 'Not Available'}
+      p Email: #{user && user.email ? user.email : 'Not Available'}
+      p Role: #{user && user.role ? user.role : 'Not Available'}
+      p Skill Level: #{user && user.skill_level ? user.skill_level : 'Not Available'}
+
+    .profile-actions
+      a.button(href="/edit-profile") Edit Profile
+      .logout-button
+        a.button(href="/logout") Logout
+
+    .home-buttons
+      a.btn-large(href="/recipes") View Recipes
+      a.btn-large(href="/recipes/search/results") Search for Recipes
+      a.btn-large(href="/upload") Upload Recipes
+      a.btn-large(href="/shopping_list") Create Shopping List
+      a.btn-large(href="/user") View Users
+
+    h2 My Recipes
+    if recipes.length > 0
+      ul.recipe-list
+        each recipe in recipes
+          li
+            h3 #{recipe.title}
+            p Country of Origin: #{recipe.country_origin}
+            p Prep Time: #{recipe.prep_duration} | Cook Time: #{recipe.cook_duration}
+            p Likes: #{recipe.like_count}
+            img(src=recipe.image_url, alt="Recipe Image")
+            p Ingredients: #{recipe.ingredients}
+            p Instructions: #{recipe.instructions}
+            a.button(href=`/recipe/edit/${recipe.id}`) Edit
+            a.button(href=`/recipe/delete/${recipe.id}`) Delete
+    else
+      p No recipes uploaded.
+
+    h2 Liked Recipes
+    if likes.length > 0
+      ul.likes-list
+        each recipe in likes
+          li
+            h3 #{recipe.title}
+            p Country of Origin: #{recipe.country_origin}
+            img(src=recipe.image_url, alt="Liked Recipe Image")
+    else
+      p No liked recipes yet.
+
+    h2 My Shopping List
+    if shopping_list && shopping_list.length > 0
+      ul.shopping_list
+        each item in shopping_list
+          li= item_name 
+    else
+      p Your shopping list is empty.
