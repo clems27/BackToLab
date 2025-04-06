@@ -1,19 +1,44 @@
-//- views/all-recipes.pug
 doctype html
-html
+html(lang="en")
   head
-    title All Recipes
-    link(rel="stylesheet", href="/styles.css")
+    title All Recipes - MC Recipe Swap
+    link(rel="stylesheet", href="/css/styles.css")
   body
-    h1 All Recipes
+    header
+      nav
+        a(href="/") Home
+        a(href="/recipes") View All Recipes
+        a(href="/login") Login 
+        a(href="/register") Create Account
+        a(href="/recipes/search/results") Search Recipes
+        a(href="/dashboard") Dashboard
+ 
 
-    if recipes.length
-      each recipe in recipes
-        .recipe-card
-          a(href="/recipes/" + recipe.id)
-            img(src=recipe.image, alt=recipe.title)
-            h2= recipe.title
-          p Ingredients: #{recipe.ingredients}
-          p Instructions: #{recipe.instructions}
-    else
-      p No recipes found.
+    main
+      h2 All Recipes
+      if recipes.length > 0
+        ul
+          each recipe in recipes
+            li
+              h3 #{recipe.title}
+              p Country of Origin: #{recipe.country_origin}
+              p Preparation Time: #{recipe.prep_duration} minutes
+              p Cooking Time: #{recipe.cook_duration} minutes
+
+              // Display image if available
+              if recipe.image_url
+                img(src=recipe.image_url, alt="Recipe Image", width="200")
+
+              // Like and Comment buttons
+              .actions
+                form(action=`/recipes/${recipe.id}/like`, method="POST")
+                  button(type="submit") 👍 Like (#{recipe.likeCount || 0})
+                form(action=`/recipes/${recipe.id}/comment`, method="POST")
+                  textarea(name="comment", placeholder="Write your comment", required)
+                  button(type="submit") 💬Comment
+              br
+              a(href=`/recipes/${recipe.id}`) View Details
+      else
+        p No recipes found.
+    footer
+      p &copy; 2025 MC Recipe Swap. All rights reserved.
