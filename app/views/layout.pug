@@ -1,14 +1,18 @@
 doctype html
 html(lang="en")
   head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title MC Recipe Swap App
-    // Link to external CSS
     link(rel="stylesheet", href="/css/styles.css")
   body
-    // Include a common header here
     header
-      h1 MC Recipe Swap 
-    // This block will be replaced by the content of each individual page
-    block content
+      nav
+        a(href="/") Home
+        a(href="/recipes") View All Recipes
+        a(href="/login") Login 
+        a(href="/register") Create Account
+        a(href="/recipes/search/results") Search Recipes 
+        a(href="/dashboard") Dashboard
+    main
+      block content
+    footer
+      p &copy; 2025 MC Recipe Swap App. All rights reserved.
