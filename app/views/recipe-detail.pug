@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    h2 #{recipe.title}
+    img(src=recipe.image_url, alt="Recipe Image")
+    p Country of Origin: #{recipe.country_origin}
+    p Preparation Time: #{recipe.prep_duration} minutes
+    p Cooking Time: #{recipe.cook_duration} minutes
+    p Diet: #{recipe.diet}
+
+    h3 Ingredients
+    ul
+        each ingredient in recipe.ingredients
+            li #{ingredient}
+
+    h3 Shopping List
+    ul
+        each item in recipe.shopping_list
+            li #{item}
+
+    h3 Instructions
+    p #{recipe.instructions}
+
+    h3 Likes: #{recipe.likeCount}
+    if user
+        form(action=`/recipes/${recipe.id}/like` method="POST")
+            button(type="submit") Like
+
+    h3 Comments
+    each comment in recipe.comments
+        p #{comment.username}: #{comment.comment_text} (#{comment.created_at})
+
+    if user
+        form(action=`/recipes/${recipe.id}/comment` method="POST")
+            textarea(name="commentText" placeholder="Add a comment" required)
+            button(type="submit") Post Comment
+    else
+        p
