@@ -43,8 +43,8 @@ block content
             option(value="1") Italian
             option(value="2") Mexican
             option(value="3") Vegan
-            option(value="3") Desserts
-            option(value="3") Asian Cuisine
+            option(value="4") Desserts
+            option(value="5") Asian Cuisine
 
 
           label(for="skill_level_id") Skill Level:
@@ -52,8 +52,10 @@ block content
             option(value="1") Toaster
             option(value="2") Sizzler
             option(value="3") Flambe  
-          
-          if registeredUser
-            button.submit-btn(type="submit") Submit
-          else
+
+          // Submit button to submit the form
+          button.submit-btn(type="submit") Submit
+
+          // Message to show if user is not registered
+          if !registeredUser
             p You must be registered to upload a recipe.
