@@ -1,21 +1,15 @@
 extends layout.pug
 
 block content
-  doctype html
-  html(lang="en")
-    head
-      meta(charset="UTF-8")
-      meta(name="viewport", content="width=device-width, initial-scale=1.0")
-      title Login | MC Recipe Swap
-      link(rel="stylesheet" href="../css/styles.css")
-    body
-      .container
-        h2 Login
-        form
-          input(type="text" placeholder="Username or Email" required)
-          input(type="password" placeholder="Password" required)
-          button.btn(type="submit") Log In
-        p.bottom-text
-          | Don't have an account yet? 
-          a(href="/html/register.html") Sign Up
-
+  .container(style="padding: 20px; max-width: 400px; margin: auto;")
+    h2 Login
+    if message
+      p(style="color: red;")= message
+    form(action="/login" method="post")
+      .form-group
+        label(for="username") Username or Email:
+        input(type="text" name="username" placeholder="Enter username or email" required class="form-control")
+      .form-group
+        label(for="password") Password:
+        input(type="password" name="password" placeholder="Enter password" required class="form-control")
+      button(type="submit" class="btn btn-primary") Login
