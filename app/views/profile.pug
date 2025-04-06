@@ -1,0 +1,54 @@
+extends layout.pug
+
+block content
+  .profile-container
+    h1 #{title}
+
+    .user-info
+      h2 User Information
+      p Username: #{user.username}
+      p Role: #{user.role}
+
+    // Action Buttons
+    .profile-actions
+      a.button(href="/edit-profile") Edit Profile
+
+    // My Recipes Section
+    h2 My Recipes
+    if recipes && recipes.length
+      each recipe in recipes
+        .recipe-card
+          h3= recipe.title
+          if recipe.image_url
+            img(src=recipe.image_url, alt=recipe.title, width="150")
+          else
+            p No image available
+    else
+      p No recipes uploaded.
+
+    // Liked Recipes Section
+    h2 Liked Recipes
+    if likes && likes.length
+      each recipe in likes
+        .liked-recipe-card
+          h3= recipe.title
+          if recipe.image_url
+            img(src=recipe.image_url, alt=recipe.title, width="150")
+          else
+            p No image available
+    else
+      p No liked recipes yet.
+
+    // Shopping List Section
+    h2 My Shopping List
+    if shopping_list && shopping_list.length
+      ul
+        each item in shopping_list
+          if typeof item === 'string'
+            li= item
+          else if item.item
+            li= item.item
+          else
+            li= JSON.stringify(item)
+    else
+      p No items in shopping list.
