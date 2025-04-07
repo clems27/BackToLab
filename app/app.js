@@ -522,22 +522,14 @@ app.post('/login', async (req, res) => {
       return res.render("login", { message: "Incorrect password", title: "Login" });
     }
 
-
-    const [userSkillLevel] = await db.query(
-      "SELECT level FROM skill_levels WHERE id = ?",
-      [user.skill_level_id]
-    );
-
-    
     // Set session on successful login
     req.session.user = {
       id: user.id,
       username: user.username,
       role: user.role,
-      skill_level: userSkillLevel.length > 0 ? userSkillLevel[0].level : "Unknown", // Fallback to 'Unknown' if not found
     };
     console.log("Session set after login:", req.session.user);
-
+    
     if (user.role === "MODERATOR") {
       res.redirect("/moderator-dashboard");
     } else {
