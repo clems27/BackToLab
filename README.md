@@ -73,7 +73,7 @@ Clone the repository and install dependencies:
 ```sh
 git clone https://github.com/clems27/BacktoLab
 cd BacktoLab
-git pull origin main
+git pull origin master
 npm install  # or yarn install
 npm install pug
 docker-compose up
